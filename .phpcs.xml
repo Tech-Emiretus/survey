@@ -30,6 +30,7 @@
 
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
         <exclude-pattern>./app/Policies/*</exclude-pattern>
+        <exclude-pattern>./database/factories/*</exclude-pattern>
     </rule>
 
 	<rule ref="Generic.CodeAnalysis.AssignmentInCondition">

@@ -15,14 +15,9 @@
             "@/*": [
                 "./resources/js/*"
             ],
-            "ziggy-js": [
-                "./vendor/tightenco/ziggy"
-            ]
         },
         "types": [
             "vite/client",
-            "vue/tsx",
-            "./resources/js/types"
         ],
         "resolveJsonModule": true,
         "allowJs": true,
