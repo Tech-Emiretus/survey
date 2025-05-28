@@ -29,8 +29,9 @@
 	<rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces"/>
 
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
-        <exclude-pattern>./app/Policies/*</exclude-pattern>
-        <exclude-pattern>./database/factories/*</exclude-pattern>
+        <exclude-pattern>./*/**/Policies/*</exclude-pattern>
+        <exclude-pattern>./*/**/factories/*</exclude-pattern>
+        <exclude-pattern>./*/**/Factories/*</exclude-pattern>
     </rule>
 
 	<rule ref="Generic.CodeAnalysis.AssignmentInCondition">

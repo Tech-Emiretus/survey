@@ -108,7 +108,7 @@ describe('SurveyParticipationController', function (): void {
                             ['id' => $surveyFields[0]->id, 'name' => 'Favorite Color', 'type' => 'text', 'options' => []],
                             ['id' => $surveyFields[1]->id, 'name' => 'Age', 'type' => 'text', 'options' => []],
                         ],
-                    ]
+                    ],
                 ]);
         });
     });

@@ -11,7 +11,6 @@ use App\Domains\Surveys\Enums\SurveyFieldTypeEnum;
 use App\Domains\Surveys\Models\Survey;
 use App\Models\User;
 
-
 describe('CreateSurveyFieldAction', function () {
     it('creates a survey field with the given data', function () {
         $survey = Survey::factory()->create();

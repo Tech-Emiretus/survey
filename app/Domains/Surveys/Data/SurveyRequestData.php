@@ -22,16 +22,12 @@ class SurveyRequestData extends Data
     public function __construct(
         #[Exists('companies', 'id')]
         public int $companyId,
-
         #[Max(255)]
         public string $title,
-
         public string|Optional $description,
-
         #[WithCast(DateTimeInterfaceCast::class)]
         #[BeforeOrEqual('end_at')]
         public CarbonImmutable $startAt,
-
         #[WithCast(DateTimeInterfaceCast::class)]
         #[AfterOrEqual('start_at')]
         public CarbonImmutable $endAt,

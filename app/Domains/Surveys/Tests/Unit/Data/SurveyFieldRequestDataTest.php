@@ -6,7 +6,6 @@ namespace App\Domains\Surveys\Tests\Unit\Data;
 
 use App\Domains\Surveys\Data\SurveyFieldRequestData;
 use App\Domains\Surveys\Enums\SurveyFieldTypeEnum;
-use App\Domains\Surveys\Models\Survey;
 use Illuminate\Validation\ValidationException;
 
 describe('SurveyFieldRequestData', function () {
@@ -16,7 +15,6 @@ describe('SurveyFieldRequestData', function () {
     })->with('validation_data_set');
 
     it('creates a valid SurveyFieldRequestData instance', function () {
-        $survey = Survey::factory()->create();
         $data = [
             'name' => 'Sample Field',
             'type' => 'text',

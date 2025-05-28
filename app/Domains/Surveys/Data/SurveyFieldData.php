@@ -20,11 +20,9 @@ class SurveyFieldData extends Data
         public Survey $survey,
         public string $name,
         public SurveyFieldTypeEnum $type,
-
         public User $createdBy,
         public CarbonImmutable $createdAt,
         public CarbonImmutable $updatedAt,
-
         public ?array $options = null,
         public ?User $deletedBy = null,
         public ?CarbonImmutable $deletedAt = null,

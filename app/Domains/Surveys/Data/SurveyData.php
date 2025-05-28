@@ -24,17 +24,13 @@ class SurveyData extends Data
         public string $title,
         public ?string $description,
         public SurveyStatusEnum $status,
-
         public CarbonImmutable $startAt,
         public CarbonImmutable $endAt,
-
         public User $createdBy,
         public CarbonImmutable $createdAt,
         public CarbonImmutable $updatedAt,
-
         /** @var Collection<\App\Models\SurveyField> $fields */
         public Collection|Optional $fields,
-
         public ?User $deletedBy = null,
         public ?CarbonImmutable $deletedAt = null,
     ) {

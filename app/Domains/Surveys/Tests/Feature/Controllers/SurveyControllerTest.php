@@ -92,7 +92,7 @@ describe('SurveyController', function (): void {
             $response->assertJsonValidationErrors([
                 'start_at',
                 'end_at',
-                'company_id'
+                'company_id',
             ])->assertUnprocessable();
         });
 
@@ -132,7 +132,7 @@ describe('SurveyController', function (): void {
                         'status' => SurveyStatusEnum::Draft->value,
                         'start_at' => '2025-05-27T00:00:00+00:00',
                         'end_at' => '2025-06-03T00:00:00+00:00',
-                    ]
+                    ],
                 ]);
         });
     });
@@ -194,7 +194,7 @@ describe('SurveyController', function (): void {
                             ['id' => $surveyFields[0]->id, 'name' => 'Favorite Color', 'type' => 'text', 'options' => []],
                             ['id' => $surveyFields[1]->id, 'name' => 'Age', 'type' => 'text', 'options' => []],
                         ],
-                    ]
+                    ],
                 ]);
         });
     });

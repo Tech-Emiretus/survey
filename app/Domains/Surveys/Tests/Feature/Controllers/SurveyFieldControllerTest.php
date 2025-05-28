@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Domains\Surveys\Tests\Feature\Controllers;
 
 use App\Domains\Surveys\Enums\SurveyFieldTypeEnum;
-use App\Models\User;
 use App\Domains\Surveys\Models\Survey;
 use App\Models\Company;
+use App\Models\User;
 use Tests\TestCase;
 
 describe('SurveyFieldController', function (): void {
@@ -64,7 +64,7 @@ describe('SurveyFieldController', function (): void {
                         'name' => 'Favorite Color',
                         'type' => SurveyFieldTypeEnum::Text->value,
                         'options' => [],
-                    ]
+                    ],
                 ]);
         });
     });
