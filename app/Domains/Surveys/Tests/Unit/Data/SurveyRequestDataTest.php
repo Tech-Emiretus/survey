@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domains\Surveys\Tests\Unit;
+namespace App\Domains\Surveys\Tests\Unit\Data;
 
 use App\Domains\Surveys\Data\SurveyRequestData;
 use App\Models\Company;
@@ -64,6 +64,11 @@ dataset('validation_data_set', function (): array {
             'data' => [...$data, 'title' => null],
             'exception' => ValidationException::class,
             'message' => 'The title field is required.',
+        ],
+        'when title greater than 255 characters' => [
+            'data' => [...$data, 'title' => str()->random(300)],
+            'exception' => ValidationException::class,
+            'message' => 'The title field must not be greater than 255 characters.',
         ],
         'when start_at is missing' => [
             'data' => [...$data, 'start_at' => null],

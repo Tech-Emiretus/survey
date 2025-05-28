@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\Surveys\Factories;
 
+use App\Domains\Surveys\Enums\SurveyStatusEnum;
 use App\Domains\Surveys\Models\Survey;
 use App\Models\Company;
 use App\Models\User;
@@ -22,7 +23,9 @@ class SurveyFactory extends Factory
             'company_id' => Company::factory(),
             'title' => $this->faker->sentence(4),
             'description' => $this->faker->optional()->paragraph(),
-            'status' => $this->faker->randomElement(['draft', 'active', 'archived']),
+            'status' => SurveyStatusEnum::Draft,
+            'start_at' => now(),
+            'end_at' => now()->addDays(7),
             'created_by' => User::factory(),
             'deleted_by' => null,
         ];
