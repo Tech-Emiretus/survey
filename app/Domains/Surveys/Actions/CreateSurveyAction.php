@@ -16,7 +16,7 @@ class CreateSurveyAction
     public function execute(User $user, SurveyRequestData $data): SurveyData
     {
         if (!$user->hasCompany($data->companyId)) {
-            throw new UnauthorizedException('User does not belong to the specified company.');
+            throw new UnauthorizedException('User does not belong to the specified company.', 403);
         }
 
         $survey = Survey::create([

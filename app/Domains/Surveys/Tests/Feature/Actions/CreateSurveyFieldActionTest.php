@@ -18,14 +18,13 @@ describe('CreateSurveyFieldAction', function () {
         $user = User::factory()->create();
 
         $data = SurveyFieldRequestData::from([
-            'survey_id' => $survey->id,
             'name' => 'Favorite Color',
             'type' => SurveyFieldTypeEnum::Text,
             'options' => [],
         ]);
 
         $action = new CreateSurveyFieldAction();
-        $fieldData = $action->execute($user, $data);
+        $fieldData = $action->execute($user, $survey, $data);
 
         expect($fieldData)->toBeInstanceOf(SurveyFieldData::class);
         expect($fieldData->name)->toBe('Favorite Color');

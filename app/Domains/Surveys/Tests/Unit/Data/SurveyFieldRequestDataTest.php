@@ -11,10 +11,6 @@ use Illuminate\Validation\ValidationException;
 
 describe('SurveyFieldRequestData', function () {
     it('validates required fields', function (array $data, string $exception, string $message) {
-        if (!empty($data['survey_id'])) {
-            Survey::factory()->create(['id' => $data['survey_id']]);
-        }
-
         expect(fn() => SurveyFieldRequestData::from($data))
             ->toThrow($exception, $message);
     })->with('validation_data_set');
@@ -22,7 +18,6 @@ describe('SurveyFieldRequestData', function () {
     it('creates a valid SurveyFieldRequestData instance', function () {
         $survey = Survey::factory()->create();
         $data = [
-            'survey_id' => $survey->id,
             'name' => 'Sample Field',
             'type' => 'text',
             'options' => [],
@@ -31,7 +26,6 @@ describe('SurveyFieldRequestData', function () {
         $surveyFieldRequestData = SurveyFieldRequestData::from($data);
 
         expect($surveyFieldRequestData)
-            ->surveyId->toBe($data['survey_id'])
             ->name->toBe($data['name'])
             ->type->toBe(SurveyFieldTypeEnum::Text)
             ->options->toBe($data['options']);
@@ -40,7 +34,6 @@ describe('SurveyFieldRequestData', function () {
 
 dataset('validation_data_set', function (): array {
     $data = [
-        'survey_id' => 1,
         'name' => 'Sample Field',
         'type' => 'text',
         'options' => [],
@@ -50,12 +43,7 @@ dataset('validation_data_set', function (): array {
         'when all fields are empty' => [
             'data' => [],
             'exception' => ValidationException::class,
-            'message' => 'The survey id field is required. (and 2 more errors)',
-        ],
-        'when survey_id is missing' => [
-            'data' => [...$data, 'survey_id' => null],
-            'exception' => ValidationException::class,
-            'message' => 'The survey id field is required.',
+            'message' => 'The name field is required. (and 1 more error)',
         ],
         'when name is missing' => [
             'data' => [...$data, 'name' => null],

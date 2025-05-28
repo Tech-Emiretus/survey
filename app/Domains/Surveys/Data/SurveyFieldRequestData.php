@@ -16,9 +16,6 @@ use Spatie\LaravelData\Optional;
 class SurveyFieldRequestData extends Data
 {
     public function __construct(
-        #[Exists('surveys', 'id')]
-        public int $surveyId,
-
         #[Max(255)]
         public string $name,
 
