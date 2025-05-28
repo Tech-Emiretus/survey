@@ -77,11 +77,11 @@ class Survey extends Model
     }
 
     /**
-     * @return HasOne<SurveySummary, Survey>
+     * @return HasMany<SurveySummary, Survey>
      */
-    public function summary(): HasOne
+    public function summaries(): HasMany
     {
-        return $this->hasOne(SurveySummary::class);
+        return $this->hasMany(SurveySummary::class);
     }
 
     public function isActive(): bool

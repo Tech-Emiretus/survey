@@ -8,9 +8,11 @@ use App\Domains\Surveys\Controllers\SurveyController;
 use App\Domains\Surveys\Controllers\SurveyFieldController;
 use App\Domains\Surveys\Controllers\SurveyParticipationController;
 use App\Domains\Surveys\Controllers\SurveyResponseController;
+use App\Domains\Surveys\Controllers\SurveySummaryController;
 use App\Domains\Surveys\Models\Survey;
 use App\Domains\Surveys\Models\SurveyField;
 use App\Domains\Surveys\Models\SurveyResponse;
+use App\Domains\Surveys\Models\SurveySummary;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function (): void {
@@ -50,6 +52,18 @@ Route::middleware('auth')->group(function (): void {
         Route::get('/{survey}/responses/{response}', [SurveyResponseController::class, 'show'])
             ->name('domains.surveys.responses.show')
             ->can('view', ['response', 'survey']);
+
+        Route::get('/{survey}/summaries', [SurveySummaryController::class, 'index'])
+            ->name('domains.surveys.summaries.index')
+            ->can('viewAny', [SurveySummary::class, 'survey']);
+
+        Route::post('/{survey}/summaries', [SurveySummaryController::class, 'store'])
+            ->name('domains.surveys.summaries.store')
+            ->can('create', [SurveySummary::class, 'survey']);
+
+        Route::get('/{survey}/summaries/{summary}', [SurveySummaryController::class, 'show'])
+            ->name('domains.surveys.summaries.show')
+            ->can('view', ['summary', 'survey']);
     });
 });
 
