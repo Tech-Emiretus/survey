@@ -19,6 +19,22 @@ describe('SurveyFieldController', function (): void {
             $response->assertUnauthorized();
         });
 
+        it('will return forbidden when user does not have access to the survey', function (): void {
+            /** @var TestCase $this */
+
+            $company = Company::factory()->create();
+            $user = User::factory()->create();
+            $survey = Survey::factory()->create(['company_id' => $company->id, 'created_by' => $user->id]);
+            $this->actingAs($user);
+            $data = [
+                'name' => 'Favorite Color',
+                'type' => SurveyFieldTypeEnum::Text->value,
+                'options' => [],
+            ];
+            $response = $this->postJson(route('domains.surveys.fields.store', ['survey' => $survey->id]), $data);
+            $response->assertForbidden();
+        });
+
         it('will return validation errors when data is invalid', function (): void {
             /** @var TestCase $this */
 

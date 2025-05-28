@@ -16,9 +16,10 @@ class SurveyResponseController
         return ApiResponse::success($responses->toArray());
     }
 
-    public function show(SurveyResponse $response): ApiResponse
+    public function show(Survey $survey, SurveyResponse $response): ApiResponse
     {
         $response->load('fieldResponses');
-        return ApiResponse::success($response->toArray());
+
+        return ApiResponse::success([...$response->toArray(), 'survey' => $survey->toArray()]);
     }
 }

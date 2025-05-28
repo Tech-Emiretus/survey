@@ -24,22 +24,22 @@ class SurveyPolicy
         return true;
     }
 
-    public function update(User $user, survey $survey): bool
+    public function update(User $user, Survey $survey): bool
     {
         return $user->hasCompany($survey->company_id) && $user->id === $survey->created_by;
     }
 
-    public function delete(User $user, survey $survey): bool
+    public function delete(User $user, Survey $survey): bool
     {
         return $user->hasCompany($survey->company_id) && $user->id === $survey->created_by;
     }
 
-    public function restore(User $user, survey $survey): bool
+    public function restore(User $user, Survey $survey): bool
     {
         return $user->hasCompany($survey->company_id) && $user->id === $survey->created_by;
     }
 
-    public function forceDelete(User $user, survey $survey): bool
+    public function forceDelete(User $user, Survey $survey): bool
     {
         return $user->hasCompany($survey->company_id) && $user->id === $survey->created_by;
     }

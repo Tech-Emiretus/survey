@@ -15,7 +15,7 @@ class SurveyResponsePolicy
         return $user->hasCompany($survey->company_id);
     }
 
-    public function view(User $user, SurveyResponse $response, Survey $survey): bool
+    public function view(User $user, SurveyResponse $response, $survey): bool
     {
         return $user->hasCompany($survey->company_id) && $response->survey_id === $survey->id;
     }
@@ -25,22 +25,22 @@ class SurveyResponsePolicy
         return false;
     }
 
-    public function update(User $user, survey $survey): bool
+    public function update(User $user, Survey $survey): bool
     {
         return false;
     }
 
-    public function delete(User $user, survey $survey): bool
+    public function delete(User $user, Survey $survey): bool
     {
         return false;
     }
 
-    public function restore(User $user, survey $survey): bool
+    public function restore(User $user, Survey $survey): bool
     {
         return false;
     }
 
-    public function forceDelete(User $user, survey $survey): bool
+    public function forceDelete(User $user, Survey $survey): bool
     {
         return false;
     }
