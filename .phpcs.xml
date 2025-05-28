@@ -32,6 +32,7 @@
         <exclude-pattern>./*/**/Policies/*</exclude-pattern>
         <exclude-pattern>./*/**/factories/*</exclude-pattern>
         <exclude-pattern>./*/**/Factories/*</exclude-pattern>
+        <exclude-pattern>./*/**/Notifications/*</exclude-pattern>
     </rule>
 
 	<rule ref="Generic.CodeAnalysis.AssignmentInCondition">

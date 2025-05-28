@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domains\Surveys\Jobs;
 
 use App\Domains\Surveys\Actions\GenerateSurveySummaryAction;

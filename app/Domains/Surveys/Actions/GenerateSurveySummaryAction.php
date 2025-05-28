@@ -13,6 +13,7 @@ use Exception;
 use OpenAI\Laravel\Facades\OpenAI;
 use Throwable;
 
+// phpcs:disable Generic.Files.LineLength
 class GenerateSurveySummaryAction
 {
     public function __construct(
@@ -28,7 +29,7 @@ class GenerateSurveySummaryAction
             $surveySummary->load([
                 'survey' => fn ($query) => $query->with([
                     'fields' => fn ($query) => $query->orderBy('id'),
-                    'responses.fieldResponses' => fn ($query) => $query->with('surveyField')->orderBy('survey_field_id')
+                    'responses.fieldResponses' => fn ($query) => $query->with('surveyField')->orderBy('survey_field_id'),
                 ]),
             ]);
 
@@ -146,3 +147,4 @@ class GenerateSurveySummaryAction
         PROMPT;
     }
 }
+// phpcs:enable Generic.Files.LineLength

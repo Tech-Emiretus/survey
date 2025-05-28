@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domains\Surveys\Commands;
 
 use App\Domains\Surveys\Enums\SurveySummaryStatusEnum;

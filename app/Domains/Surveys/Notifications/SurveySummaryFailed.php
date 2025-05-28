@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domains\Surveys\Notifications;
 
 use App\Domains\Surveys\Models\SurveySummary;
@@ -30,7 +32,7 @@ class SurveySummaryFailed extends Notification implements ShouldQueue
     {
         $title = $this->summary->survey->title;
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->line("The summary generation for survey ({$title}) failed.")
             ->action('View Survey Summary', url('/'))
             ->line('Thank you for using our application!');

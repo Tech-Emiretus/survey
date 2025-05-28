@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'Good',
             'Average',
             'Poor',
-            'Very Poor'
+            'Very Poor',
         ];
 
         $survey->fields()->createMany([

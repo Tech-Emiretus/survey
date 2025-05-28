@@ -47,11 +47,11 @@ describe('GenerateSurveySummaryAction', function (): void {
                 'choices' => [
                     [
                         'message' => [
-                            'content' => ''
-                        ]
-                    ]
-                ]
-            ])
+                            'content' => '',
+                        ],
+                    ],
+                ],
+            ]),
         ]);
 
         $survey = Survey::factory()->create();
@@ -72,18 +72,18 @@ describe('GenerateSurveySummaryAction', function (): void {
         OpenAI::assertSent(Chat::class);
     });
 
-   it('throws an exception if OpenAI returns invalid response format', function () {
+    it('throws an exception if OpenAI returns invalid response format', function () {
         Notification::fake();
         OpenAI::fake([
             CreateResponse::fake([
                 'choices' => [
                     [
                         'message' => [
-                            'content' => json_encode(['sentiment' => '', 'summary' => ''])
-                        ]
-                    ]
-                ]
-            ])
+                            'content' => json_encode(['sentiment' => '', 'summary' => '']),
+                        ],
+                    ],
+                ],
+            ]),
         ]);
 
         $survey = Survey::factory()->create();
@@ -111,11 +111,11 @@ describe('GenerateSurveySummaryAction', function (): void {
                 'choices' => [
                     [
                         'message' => [
-                            'content' => json_encode(['sentiment' => 'positive', 'summary' => 'Great feedback!'])
-                        ]
-                    ]
-                ]
-            ])
+                            'content' => json_encode(['sentiment' => 'positive', 'summary' => 'Great feedback!']),
+                        ],
+                    ],
+                ],
+            ]),
         ]);
 
         $survey = Survey::factory()->create();
