@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
+            $table->ulid('public_id')->unique();
             $table->foreignId('company_id')->constrained('companies');
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('status')->default('draft')->comment('Status: draft, active, archived');
+            $table->dateTime('start_at');
+            $table->dateTime('end_at');
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('deleted_by')->nullable()->constrained('users');
             $table->timestamps();

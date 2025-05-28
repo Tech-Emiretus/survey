@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\Surveys\Models;
 
+use App\Domains\Surveys\Enums\SurveyStatusEnum;
 use App\Domains\Surveys\Factories\SurveyFactory;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,11 +13,27 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Survey extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $casts = [
+        'status' => SurveyStatusEnum::class,
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
+
+    protected static function booted(): void
+    {
+        parent::booted();
+
+        static::creating(function (Model $model) {
+            $model->public_id ??= (string) Str::ulid();
+        });
+    }
 
     /**
      * @return BelongsTo<Company, Survey>
