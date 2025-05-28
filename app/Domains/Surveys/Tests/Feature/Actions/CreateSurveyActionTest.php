@@ -49,8 +49,8 @@ describe('CreateSurveyAction', function () {
         expect($surveyData)->toBeInstanceOf(SurveyData::class);
         expect($surveyData->title)->toBe('Test Survey');
         expect($surveyData->description)->toBe('This is a test survey description.');
-        expect($surveyData->companyId)->toBe($company->id);
+        expect($surveyData->company->id)->toBe($company->id);
         expect($surveyData->status)->toBe(SurveyStatusEnum::Draft);
-        expect($surveyData->createdBy)->toBe($user->id);
+        expect($surveyData->createdBy->id)->toBe($user->id);
     });
 });

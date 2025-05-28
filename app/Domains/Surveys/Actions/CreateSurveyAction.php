@@ -25,6 +25,6 @@ class CreateSurveyAction
             'created_by' => $user->id,
         ]);
 
-        return SurveyData::from($survey);
+        return SurveyData::from($survey->load('company', 'createdBy', 'deletedBy'));
     }
 }
