@@ -7,7 +7,10 @@ namespace App\Domains\Surveys\Routes;
 use App\Domains\Surveys\Controllers\SurveyController;
 use App\Domains\Surveys\Controllers\SurveyFieldController;
 use App\Domains\Surveys\Controllers\SurveyParticipationController;
+use App\Domains\Surveys\Controllers\SurveyResponseController;
 use App\Domains\Surveys\Models\Survey;
+use App\Domains\Surveys\Models\SurveyField;
+use App\Domains\Surveys\Models\SurveyResponse;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function (): void {
@@ -22,10 +25,19 @@ Route::middleware('auth')->group(function (): void {
 
         Route::get('/{survey}', [SurveyController::class, 'show'])
             ->name('domains.surveys.show')
-            ->can('view,survey');
+            ->can('view', ['survey']);
 
         Route::post('/{survey}/fields', [SurveyFieldController::class, 'store'])
-            ->name('domains.surveys.fields.store');
+            ->name('domains.surveys.fields.store')
+            ->can('create', [SurveyField::class, 'survey']);
+
+        Route::get('/{survey}/responses', [SurveyResponseController::class, 'index'])
+            ->name('domains.surveys.responses.index')
+            ->can('viewAny', [SurveyResponse::class, 'survey']);
+
+        Route::get('/{survey}/responses/{response}', [SurveyResponseController::class, 'show'])
+            ->name('domains.surveys.responses.show')
+            ->can('view', ['response', 'survey']);
     });
 });
 
