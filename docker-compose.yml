@@ -75,6 +75,14 @@ services:
     depends_on:
       - survey-app
 
+  survey-smtp:
+    image: axllent/mailpit
+    ports:
+      - '${MAILHOG_WEB_PORT:-8025}:8025'
+      - '${MAILHOG_SMTP_PORT:-1025}:1025'
+    networks:
+      - survey
+
 networks:
   survey:
     driver: bridge

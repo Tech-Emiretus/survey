@@ -18,7 +18,11 @@ return new class extends Migration
             $table->foreignId('survey_id')->constrained('surveys')->onDelete('cascade');
             $table->integer('total_responses')->default(0);
             $table->string('sentiment')->nullable();
-            $table->string('summary')->nullable();
+            $table->text('summary')->nullable();
+            $table->string('status')->default('pending')->comment('pending, generating, completed, failed');
+            $table->text('error_message')->nullable();
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->dateTime('completed_at')->nullable();
             $table->timestamps();
         });
     }
