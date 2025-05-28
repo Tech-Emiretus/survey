@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domains\Surveys\Controllers;
 
+use App\Domains\Surveys\Enums\SurveySummaryStatusEnum;
 use App\Domains\Surveys\Models\Survey;
 use App\Domains\Surveys\Models\SurveySummary;
-use App\Domains\Surveys\Enums\SurveySummaryStatusEnum;
 use App\Support\ApiResponse;
 
 class SurveySummaryController
