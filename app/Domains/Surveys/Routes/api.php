@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function (): void {
             ->name('domains.surveys.fields.store')
             ->can('create', [SurveyField::class, 'survey']);
 
+        Route::delete('/{survey}/fields/{field}', [SurveyFieldController::class, 'destroy'])
+            ->name('domains.surveys.fields.destroy')
+            ->can('delete', ['field', 'survey']);
+
         Route::get('/{survey}/responses', [SurveyResponseController::class, 'index'])
             ->name('domains.surveys.responses.index')
             ->can('viewAny', [SurveyResponse::class, 'survey']);

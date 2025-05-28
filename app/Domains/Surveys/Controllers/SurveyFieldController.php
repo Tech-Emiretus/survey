@@ -7,6 +7,7 @@ namespace App\Domains\Surveys\Controllers;
 use App\Domains\Surveys\Actions\CreateSurveyFieldAction;
 use App\Domains\Surveys\Data\SurveyFieldRequestData;
 use App\Domains\Surveys\Models\Survey;
+use App\Domains\Surveys\Models\SurveyField;
 use App\Support\ApiResponse;
 use Throwable;
 
@@ -33,5 +34,12 @@ class SurveyFieldController
                 status: $th->getCode() ?: ApiResponse::HTTP_INTERNAL_SERVER_ERROR
             );
         }
+    }
+
+    public function destroy(Survey $survey, SurveyField $field): ApiResponse // phpcs:ignore
+    {
+        $field->delete();
+
+        return ApiResponse::success(status: ApiResponse::HTTP_NO_CONTENT);
     }
 }
