@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class ApiResponse extends JsonResponse
 {
-    public static function success(array $data = [], ?string $message = null, int $status = JsonResponse::HTTP_OK): self
+    public static function success(array $data = [], ?string $message = null, int $status = self::HTTP_OK): self
     {
         return new self([
             'success' => true,
@@ -17,7 +17,7 @@ class ApiResponse extends JsonResponse
         ], $status);
     }
 
-    public static function error(string $message, int $status = JsonResponse::HTTP_BAD_REQUEST): self
+    public static function error(string $message, int $status = self::HTTP_BAD_REQUEST): self
     {
         return new self([
             'success' => false,

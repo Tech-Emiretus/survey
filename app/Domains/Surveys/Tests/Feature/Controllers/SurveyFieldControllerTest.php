@@ -10,7 +10,6 @@ use App\Domains\Surveys\Models\Survey;
 use App\Models\Company;
 use Tests\TestCase;
 
-
 describe('SurveyFieldController', function (): void {
     describe('store', function (): void {
         it('will return unauthenticated when user is not logged in', function (): void {

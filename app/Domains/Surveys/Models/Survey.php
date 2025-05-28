@@ -84,6 +84,13 @@ class Survey extends Model
         return $this->hasOne(SurveySummary::class);
     }
 
+    public function isActive(): bool
+    {
+        return $this->status === SurveyStatusEnum::Published
+            && $this->start_at <= now()
+            && $this->end_at >= now();
+    }
+
     protected static function newFactory(): SurveyFactory
     {
         return SurveyFactory::new();

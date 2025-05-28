@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('survey_response_id')->constrained('survey_responses')->onDelete('cascade');
             $table->foreignId('survey_field_id')->constrained('survey_fields');
-            $table->string('response')->nullable();
+            $table->text('response')->nullable();
             $table->timestamps();
         });
     }

@@ -30,4 +30,15 @@ class SurveyFactory extends Factory
             'deleted_by' => null,
         ];
     }
+
+    public function active(): self
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => SurveyStatusEnum::Published,
+                'start_at' => now()->subDays(1),
+                'end_at' => now()->addDays(7),
+            ];
+        });
+    }
 }

@@ -30,7 +30,7 @@ class SurveyFieldController
         } catch (Throwable $th) {
             return ApiResponse::error(
                 message: $th->getMessage(),
-                status: ApiResponse::HTTP_BAD_REQUEST
+                status: $th->getCode() ?: ApiResponse::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }
