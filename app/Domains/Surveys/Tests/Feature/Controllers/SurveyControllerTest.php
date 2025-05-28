@@ -198,4 +198,115 @@ describe('SurveyController', function (): void {
                 ]);
         });
     });
+
+    describe('update', function (): void {
+        it('returns unauthenticated when user is not logged in', function (): void {
+            /** @var TestCase $this */
+            $survey = Survey::factory()->create();
+
+            $this->putJson(route('domains.surveys.update', ['survey' => $survey->id]))
+                ->assertUnauthorized();
+        });
+
+        it('returns forbidden when user does not have permission to update the survey', function (): void {
+            /** @var TestCase $this */
+            $company = Company::factory()->create();
+            $user = User::factory()->hasAttached($company)->create();
+            $survey = Survey::factory()->create(['company_id' => $company->id]);
+
+            $this->actingAs($user);
+
+            $data = [
+                'title' => 'Updated Survey',
+                'description' => 'Updated description.',
+            ];
+
+            $this->putJson(route('domains.surveys.update', ['survey' => $survey->id]), $data)
+                ->assertForbidden();
+        });
+
+        it('updates a survey with valid data', function (): void {
+            /** @var TestCase $this */
+            $company = Company::factory()->create();
+            $user = User::factory()->hasAttached($company)->create();
+
+            $survey = Survey::factory()->create([
+                'company_id' => $company->id,
+                'created_by' => $user->id,
+                'status' => SurveyStatusEnum::Draft->value,
+            ]);
+
+            $this->actingAs($user);
+
+            $data = [
+                'company_id' => $company->id,
+                'title' => 'Updated Survey',
+                'description' => 'Updated description.',
+                'start_at' => now()->toISOString(),
+                'end_at' => now()->addDays(7)->toISOString(),
+            ];
+
+            $this->putJson(route('domains.surveys.update', ['survey' => $survey->id]), $data)
+                ->assertOk()
+                ->assertJson([
+                    'success' => true,
+                    'message' => 'Survey updated successfully.',
+                    'data' => [
+                        'id' => $survey->id,
+                        'title' => 'Updated Survey',
+                        'description' => 'Updated description.',
+                        'company' => [
+                            'id' => $company->id,
+                            'name' => $company->name,
+                        ],
+                        'created_by' => [
+                            'id' => $user->id,
+                            'name' => $user->name,
+                        ],
+                    ],
+                ]);
+        });
+    });
+
+    describe('destroy', function (): void {
+        it('returns unauthenticated when user is not logged in', function (): void {
+            /** @var TestCase $this */
+            $survey = Survey::factory()->create();
+
+            $this->deleteJson(route('domains.surveys.destroy', ['survey' => $survey->id]))
+                ->assertUnauthorized();
+        });
+
+        it('returns forbidden when user does not have permission to delete the survey', function (): void {
+            /** @var TestCase $this */
+            $company = Company::factory()->create();
+            $user = User::factory()->hasAttached($company)->create();
+            $survey = Survey::factory()->create(['company_id' => $company->id]);
+
+            $this->actingAs($user);
+
+            $this->deleteJson(route('domains.surveys.destroy', ['survey' => $survey->id]))
+                ->assertForbidden();
+        });
+
+        it('deletes a survey', function (): void {
+            /** @var TestCase $this */
+            $company = Company::factory()->create();
+            $user = User::factory()->hasAttached($company)->create();
+            $survey = Survey::factory()->create([
+                'company_id' => $company->id,
+                'created_by' => $user->id,
+                'status' => SurveyStatusEnum::Draft->value,
+            ]);
+            $this->actingAs($user);
+
+            $this->deleteJson(route('domains.surveys.destroy', ['survey' => $survey->id]))
+                ->assertNoContent();
+
+            $survey->refresh();
+
+            $this->assertSoftDeleted($survey);
+            $this->assertEquals($user->id, $survey->deleted_by);
+        });
+    });
 });

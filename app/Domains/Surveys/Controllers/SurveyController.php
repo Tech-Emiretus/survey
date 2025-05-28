@@ -51,4 +51,26 @@ class SurveyController
 
         return ApiResponse::success(SurveyData::from($survey)->toArray());
     }
+
+    public function update(SurveyRequestData $data, Survey $survey): ApiResponse
+    {
+        $survey->update($data->toArray());
+        $survey->refresh();
+        $survey->load('company', 'fields', 'createdBy', 'deletedBy');
+
+        return ApiResponse::success(
+            data: SurveyData::from($survey)->toArray(),
+            message: 'Survey updated successfully.'
+        );
+    }
+
+    public function destroy(Survey $survey): ApiResponse
+    {
+        $survey->update([
+            'deleted_by' => request()->user()->id,
+            'deleted_at' => now(),
+        ]);
+
+        return ApiResponse::success(status: ApiResponse::HTTP_NO_CONTENT);
+    }
 }

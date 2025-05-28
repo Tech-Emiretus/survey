@@ -27,6 +27,14 @@ Route::middleware('auth')->group(function (): void {
             ->name('domains.surveys.show')
             ->can('view', ['survey']);
 
+        Route::put('/{survey}', [SurveyController::class, 'update'])
+            ->name('domains.surveys.update')
+            ->can('update', ['survey']);
+
+        Route::delete('/{survey}', [SurveyController::class, 'destroy'])
+            ->name('domains.surveys.destroy')
+            ->can('delete', ['survey']);
+
         Route::post('/{survey}/fields', [SurveyFieldController::class, 'store'])
             ->name('domains.surveys.fields.store')
             ->can('create', [SurveyField::class, 'survey']);
