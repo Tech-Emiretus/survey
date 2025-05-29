@@ -57,7 +57,7 @@ This project is a survey feedback application designed to collect and manage res
 5. Grab your OPENAI organization and OPENAI api key and store that in the `.env` file.
 4. Run `make setup` from the project root. It will do some bootstrapping and setup the docker containers.
 
-### Running the FE
+### Running the FE [Only needed when developing]
 1. We are using vite to compile the Vue components,
 2. In another terminal, simply run `make frontend`.
 3. It should start the vite dev process and FE should work as expected.
