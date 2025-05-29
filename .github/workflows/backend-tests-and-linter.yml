@@ -12,7 +12,7 @@ jobs:
     env:
       DB_DATABASE: survey_test
       DB_USERNAME: root
-      DB_PASSWORD: password
+      DB_PASSWORD:
 
     steps:
       - name: Start MySQL
