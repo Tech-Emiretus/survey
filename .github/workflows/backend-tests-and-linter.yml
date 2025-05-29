@@ -9,19 +9,19 @@ jobs:
   Tests:
     runs-on: [ubuntu-latest]
 
-    env:
-      DB_DATABASE: survey_test
-      DB_USERNAME: root
-      DB_PASSWORD: password
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: survey_test
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Start MySQL
-        run: |
-          sudo mysqld_safe --user=$DB_USERNAME --password=$DB_PASSWORD &
-          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USERNAME -p$DB_PASSWORD
-
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -59,11 +59,11 @@ jobs:
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql
-          DB_PORT: 3306
-          DB_DATABASE: ${{ env.DB_DATABASE }}
-          DB_USERNAME: ${{ env.DB_USERNAME }}
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_DATABASE: survey_test
+          DB_USERNAME: root
           DB_HOST: 127.0.0.1
-          DB_PASSWORD: ${{ env.DB_PASSWORD }}
+          DB_PASSWORD: password
         run: php artisan test
 
       - name: Lint code with PHPCS
