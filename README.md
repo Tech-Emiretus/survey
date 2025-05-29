@@ -23,6 +23,11 @@ This project is a survey feedback application designed to collect and manage res
 3. Extracted vue components from the boilerplate to be used for the main dashboard.
 4. No state manager in vue, just kept it very simple.
 
+#### Where are my Form Requests
+1. I'm glad you asked, over the years, I have come to enjoy using `spatie/laravel-data` package as form requests and also as DTOs.
+2. I can write a lot of why, but it makes it nice to use the Data objects in `Actions` or `Service` classes without really tying it to a form request or the most notorious, just an array.
+3. The same data can also be used to transform the contents or even act as a JSON resource.
+
 ### Database Decisions
 1. Some indexes are missing on purpose. Didn't really go into full optimization yet.
 2. Some entities could have more elaborate fields.
