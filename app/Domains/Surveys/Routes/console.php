@@ -9,4 +9,4 @@ use Illuminate\Support\Facades\Schedule;
 
 Schedule::command(ProcessPendingSurveySummariesCommand::class)
     ->withoutOverlapping()
-    ->everyFiveMinutes();
+    ->everyMinute();

@@ -82,6 +82,7 @@ import PrimaryButton from '../../components/PrimaryButton.vue';
 import { AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
 import { onBeforeRouteUpdate } from 'vue-router'
+import { formatDate } from '../../bootstrap';
 
 const router = useRouter();
 const userInfo = inject('userInfo');
@@ -122,13 +123,6 @@ onMounted(async () => {
     }
 });
 
-const formatDateForInput = (dateString) => {
-    if (!dateString) return null;
-    const date = new Date(dateString);
-    const pad = (n) => n.toString().padStart(2, '0');
-    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-};
-
 const fetchExistingSurvey = async (id) => {
     try {
         existingSurvey.value = (await getSurvey(id)).data;
@@ -137,8 +131,8 @@ const fetchExistingSurvey = async (id) => {
         survey.value.description = existingSurvey.value.description;
         survey.value.company_id = existingSurvey.value.company.id;
         survey.value.status = existingSurvey.value.status;
-        survey.value.start_at = formatDateForInput(existingSurvey.value.start_at);
-        survey.value.end_at = formatDateForInput(existingSurvey.value.end_at);
+        survey.value.start_at = formatDate(existingSurvey.value.start_at);
+        survey.value.end_at = formatDate(existingSurvey.value.end_at);
     } catch (error) {
         console.error(error);
 

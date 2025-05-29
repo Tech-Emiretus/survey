@@ -49,6 +49,31 @@ export const deleteSurvey = async (id) => {
     return response.data;
 }
 
+export const getSurveyResponses = async (surveyId) => {
+    const response = await axios.get(`api/surveys/${surveyId}/responses`);
+    return response.data;
+}
+
+export const getSurveyResponseDetails = async (surveyId, responseId) => {
+    const response = await axios.get(`api/surveys/${surveyId}/responses/${responseId}`);
+    return response.data;
+}
+
+export const getSurveySummaries = async (surveyId) => {
+    const response = await axios.get(`api/surveys/${surveyId}/summaries`);
+    return response.data;
+}
+
+export const createSurveySummary = async (surveyId) => {
+    const response = await axios.post(`api/surveys/${surveyId}/summaries`);
+    return response.data;
+}
+
+export const getSurveySummary = async (surveyId, summaryId) => {
+    const response = await axios.get(`api/surveys/${surveyId}/summaries/${summaryId}`);
+    return response.data;
+}
+
 export const getSurveyForParticipant = async (id) => {
     const response = await axios.get(`api/participate/${id}`);
     return response.data;

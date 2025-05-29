@@ -13,7 +13,7 @@ class SurveySummaryController
 {
     public function index(Survey $survey): ApiResponse
     {
-        $summaries = $survey->summaries()->get();
+        $summaries = $survey->summaries()->with('createdBy')->orderBy('id', 'desc')->get();
         return ApiResponse::success($summaries->toArray());
     }
 
@@ -21,6 +21,7 @@ class SurveySummaryController
     {
         $summary = $survey->summaries()->create([
             'status' => SurveySummaryStatusEnum::Pending,
+            'total_responses' => $survey->responses()->count(),
             'created_by' => request()->user()->id,
         ]);
 
@@ -29,6 +30,7 @@ class SurveySummaryController
 
     public function show(Survey $survey, SurveySummary $summary): ApiResponse
     {
+        $summary->load('createdBy');
         return ApiResponse::success([...$summary->toArray(), 'survey' => $survey->toArray()]);
     }
 }

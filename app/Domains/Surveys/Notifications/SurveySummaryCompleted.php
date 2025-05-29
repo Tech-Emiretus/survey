@@ -31,10 +31,11 @@ class SurveySummaryCompleted extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         $title = $this->summary->survey->title;
+        $actionUrl = url('/surveys/' . $this->summary->survey_id . '/summaries/' . $this->summary->id);
 
         return (new MailMessage())
             ->line("The summary generation for survey ({$title}) has completed.")
-            ->action('View Survey Summary', url('/'))
+            ->action('View Survey Summary', $actionUrl)
             ->line('Thank you for using our application!');
     }
 }

@@ -46,6 +46,7 @@ COPY ./conf/php.ini /etc/php/8.4/cli/conf.d/99-survey.ini
 COPY ./conf/php.ini /etc/php/8.4/fpm/conf.d/99-survey.ini
 COPY ./conf/php-fpm.conf /etc/php/8.4/fpm/pool.d/logging.conf
 COPY ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./helpers/start-container.sh /usr/local/bin/start-container.sh
 RUN chmod +x /usr/local/bin/start-container.sh
 

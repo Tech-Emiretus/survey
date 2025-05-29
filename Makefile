@@ -84,3 +84,6 @@ lint-fix:
 
 frontend:
 	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "npm install && npm run dev"
+
+restart-bg-processes:
+	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "supervisorctl restart queue-worker:* scheduler:*"

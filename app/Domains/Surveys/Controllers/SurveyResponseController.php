@@ -12,13 +12,13 @@ class SurveyResponseController
 {
     public function index(Survey $survey): ApiResponse
     {
-        $responses = $survey->responses()->get();
+        $responses = $survey->responses()->orderBy('id', 'desc')->get();
         return ApiResponse::success($responses->toArray());
     }
 
     public function show(Survey $survey, SurveyResponse $response): ApiResponse
     {
-        $response->load('fieldResponses');
+        $response->load('fieldResponses.surveyField');
 
         return ApiResponse::success([...$response->toArray(), 'survey' => $survey->toArray()]);
     }
