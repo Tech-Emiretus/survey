@@ -78,8 +78,8 @@ services:
   survey-smtp:
     image: axllent/mailpit
     ports:
-      - '${MAILHOG_WEB_PORT:-8025}:8025'
-      - '${MAILHOG_SMTP_PORT:-1025}:1025'
+      - '${MAILPIT_WEB_PORT:-8025}:8025'
+      - '${MAILPIT_SMTP_PORT:-1025}:1025'
     networks:
       - survey
 
