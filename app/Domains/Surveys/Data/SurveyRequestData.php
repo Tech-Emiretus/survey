@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\Surveys\Data;
 
+use App\Domains\Surveys\Enums\SurveyStatusEnum;
 use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Attributes\Validation\AfterOrEqual;
@@ -31,6 +32,7 @@ class SurveyRequestData extends Data
         #[WithCast(DateTimeInterfaceCast::class)]
         #[AfterOrEqual('start_at')]
         public CarbonImmutable $endAt,
+        public SurveyStatusEnum|Optional $status = SurveyStatusEnum::Draft,
     ) {
     }
 }

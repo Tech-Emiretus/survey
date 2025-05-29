@@ -39,7 +39,10 @@ class SurveyServiceProvider extends ServiceProvider
     private function registerRoutes(): void
     {
         Route::prefix('api')
-            ->middleware(['api'])
+            ->middleware(['web', 'api'])
             ->group(__DIR__ . '/Routes/api.php');
+
+        Route::middleware(['web'])
+            ->group(__DIR__ . '/Routes/web.php');
     }
 }
