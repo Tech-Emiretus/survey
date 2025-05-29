@@ -11,7 +11,7 @@
         </div>
 
         <template v-if="survey.fields.length">
-            <div class="mt-6 mb-6 flex w-full items-center align-middle" v-for="(field, index) in survey.fields" :key="field.id">
+            <div class="mt-6 mb-6 flex w-full items-end align-bottom" v-for="(field, index) in survey.fields" :key="field.id">
                 <div class="flex-1 mr-2">
                     <label :for="field.id" class="block text-gray-700 dark:text-gray-200 font-bold mb-2">{{ field.name }}</label>
 
@@ -48,7 +48,7 @@
                         </div>
                     </template>
                 </div>
-                <div class="flex-shrink-0 ml-4 w-24 flex items-start">
+                <div class="flex-shrink-0 ml-4 w-24">
                     <primary-button class="w-full" @click.prevent="deleteSurveyField(field.id)">Delete</primary-button>
                 </div>
             </div>
