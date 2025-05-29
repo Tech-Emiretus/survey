@@ -118,7 +118,7 @@ const generateNewSummary = async () => {
 };
 
 const copyPublicUrl = () => {
-    const publicUrl = `${window.location.origin}/participate/${existingSurvey.value.public_id}`;
+    const publicUrl = `${window.location.origin}/participate/${survey.value.public_id}`;
     navigator.clipboard.writeText(publicUrl).then(() => {
         alert('Public URL copied to clipboard!');
     }).catch(err => {

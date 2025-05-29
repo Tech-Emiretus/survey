@@ -73,4 +73,4 @@ Route::prefix('/participate')->group(function (): void {
 
     Route::post('/{survey:public_id}', [SurveyParticipationController::class, 'store'])
         ->name('domains.participate.store');
-});
+})->middleware('throttle:participation');

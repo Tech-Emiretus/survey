@@ -12,7 +12,7 @@ use Spatie\LaravelData\Exceptions\CannotCastDate;
 describe('SurveyRequestData', function () {
     it('validates required fields', function (array $data, string $exception, string $message) {
         if (!empty($data['company_id'])) {
-            Company::factory()->create(['id' => $data['company_id']]);
+            $data['company_id'] = Company::factory()->create()->id;
         }
 
         expect(fn () => SurveyRequestData::from($data))

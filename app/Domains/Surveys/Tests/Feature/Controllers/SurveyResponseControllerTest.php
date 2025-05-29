@@ -44,7 +44,7 @@ describe('SurveyResponseController', function (): void {
                 ->assertOk()
                 ->assertJson([
                     'success' => true,
-                    'data' => $responses->toArray(),
+                    'data' => $responses->sortByDesc('id')->values()->toArray(),
                 ]);
         });
     });

@@ -50,7 +50,9 @@ describe('SurveySummaryController', function () {
                         [
                             'id' => $summary->id,
                             'survey_id' => $survey->id,
-                            'created_by' => $user->id,
+                            'created_by' => [
+                                'id' => $user->id,
+                            ],
                             'status' => SurveySummaryStatusEnum::Pending->value,
                         ],
                     ],
@@ -137,7 +139,9 @@ describe('SurveySummaryController', function () {
                         'id' => $summary->id,
                         'survey_id' => $survey->id,
                         'status' => SurveySummaryStatusEnum::Pending->value,
-                        'created_by' => $user->id,
+                        'created_by' => [
+                            'id' => $user->id,
+                        ],
                     ],
                 ]);
         });

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domains\Surveys;
 
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +19,11 @@ class SurveyServiceProvider extends ServiceProvider
     {
         $this->registerCommands();
         $this->registerRoutes();
+    }
+
+    public function boot(): void
+    {
+        $this->configureRateLimiting();
     }
 
     private function registerCommands(): void
@@ -44,5 +52,12 @@ class SurveyServiceProvider extends ServiceProvider
 
         Route::middleware(['web'])
             ->group(__DIR__ . '/Routes/web.php');
+    }
+
+    private function configureRateLimiting(): void
+    {
+        RateLimiter::for('participation', function (Request $request) {
+            return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
+        });
     }
 }
