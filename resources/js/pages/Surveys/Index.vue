@@ -5,7 +5,7 @@
         </div>
 
         <template v-if="surveys.length">
-            <div class="overflow-x-auto shadow bg-white dark:bg-gray-800">
+            <div class="overflow-x-scroll shadow bg-white dark:bg-gray-800">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-900">
                         <tr>
