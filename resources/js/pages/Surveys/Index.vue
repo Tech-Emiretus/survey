@@ -22,7 +22,7 @@
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
                         <tr v-for="survey in surveys" :key="survey.id" class="hover:bg-gray-50 dark:hover:bg-gray-700  cursor-pointer" @click="$router.push(`/surveys/${survey.id}`)" title="Click to view survey details">
-                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
+                            <td class="px-4 py-2 w-full whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">
                                 <primary-link :to="`/surveys/edit/${survey.id}`" @click.stop class="px-1 mr-2" v-if="userInfo.id === survey.created_by.id">
                                     Edit
                                 </primary-link>
