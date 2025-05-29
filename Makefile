@@ -34,6 +34,7 @@ build:
 start:
 	make start-fast
 	make composer-install
+	make generate-ide-helpers
 
 start-fast:
 	make stop
@@ -81,6 +82,12 @@ lint-code:
 
 lint-fix:
 	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "composer lint-fix"
+
+test:
+	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "composer test"
+
+generate-ide-helpers:
+	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "composer generate-ide-helpers"
 
 frontend:
 	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "npm install && npm run dev"
