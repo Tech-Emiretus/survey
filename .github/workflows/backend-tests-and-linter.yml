@@ -12,12 +12,12 @@ jobs:
     env:
       DB_DATABASE: survey_test
       DB_USERNAME: root
-      DB_PASSWORD:
+      DB_PASSWORD: password
 
     steps:
       - name: Start MySQL
         run: |
-          sudo /etc/init.d/mysql start
+          sudo mysqld_safe --user=$DB_USERNAME --password=$DB_PASSWORD &
           mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USERNAME -p$DB_PASSWORD
 
       - name: Checkout
