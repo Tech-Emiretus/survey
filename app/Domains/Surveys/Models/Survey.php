@@ -20,12 +20,6 @@ class Survey extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $casts = [
-        'status' => SurveyStatusEnum::class,
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
-    ];
-
     protected static function booted(): void
     {
         parent::booted();
@@ -88,6 +82,15 @@ class Survey extends Model
         return $this->status === SurveyStatusEnum::Published
             && $this->start_at <= now()
             && $this->end_at >= now();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'status' => SurveyStatusEnum::class,
+            'start_at' => 'datetime',
+            'end_at' => 'datetime',
+        ];
     }
 
     protected static function newFactory(): SurveyFactory

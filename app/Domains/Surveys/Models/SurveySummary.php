@@ -31,11 +31,6 @@ class SurveySummary extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [

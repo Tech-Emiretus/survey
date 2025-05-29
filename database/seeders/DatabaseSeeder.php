@@ -7,7 +7,6 @@ namespace Database\Seeders;
 use App\Domains\Surveys\Enums\SurveyFieldTypeEnum;
 use App\Domains\Surveys\Models\Survey;
 use App\Domains\Surveys\Models\SurveyResponse;
-use App\Models\Company;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,12 +22,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->truncateTables();
 
-        $company = Company::factory()->create();
-
         $user = User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'test@survey.com',
+            'password' => bcrypt('testing1234'),
         ]);
+
+        $company = $user->companies()->first();
 
         $survey = Survey::factory()->create([
             'title' => 'Test - Leadership Survey',

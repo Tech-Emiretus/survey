@@ -16,10 +16,6 @@ class SurveyField extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $casts = [
-        'options' => 'array',
-    ];
-
     /**
      * @return BelongsTo<Survey, SurveyField>
      */
@@ -42,6 +38,13 @@ class SurveyField extends Model
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'options' => 'array',
+        ];
     }
 
     protected static function newFactory(): SurveyFieldFactory
