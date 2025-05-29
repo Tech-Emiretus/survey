@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const baseURL = 'http://localhost'; // process.env.APP_URL;
+const baseURL = import.meta.env.VITE_APP_URL
 const csrfToken = document.querySelector('[name=crsf-token]')?.getAttribute('content');
 
 export const axios = Axios.create({
@@ -46,6 +46,16 @@ export const updateSurvey = async (id, data) => {
 
 export const deleteSurvey = async (id) => {
     const response = await axios.delete(`api/surveys/${id}`);
+    return response.data;
+}
+
+export const createSurveyField = async (surveyId, data) => {
+    const response = await axios.post(`api/surveys/${surveyId}/fields`, data);
+    return response.data;
+}
+
+export const deleteSurveyField = async (surveyId, fieldId) => {
+    const response = await axios.delete(`api/surveys/${surveyId}/fields/${fieldId}`);
     return response.data;
 }
 

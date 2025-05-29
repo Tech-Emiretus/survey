@@ -3,6 +3,7 @@
         <div class="mb-6 flex justify-between items-center">
             <div class="flex items-center">
                 <primary-button @click.prevent="copyPublicUrl">Copy Public Url</primary-button>
+                <primary-link :to="`/surveys/edit/${survey.id}`" class="ml-2">Edit</primary-link>
                 <primary-button type="button" @click.prevent="deleteSurvey" class="ml-2 bg-red-600 dark:bg-red-600">Delete</primary-button>
             </div>
 

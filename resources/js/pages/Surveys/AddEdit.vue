@@ -5,7 +5,7 @@
             <primary-link to="/surveys">Back</primary-link>
         </div>
 
-        <form class="max-w-2xl">
+        <form class="max-w-2xl mb-8">
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 dark:text-gray-200 font-bold mb-2">Title</label>
                 <input
@@ -68,9 +68,16 @@
                 </select>
             </div>
 
-            <primary-button type="submit" @click.prevent="submitForm">Save</primary-button>
-            <primary-button v-if="isEditMode" type="button" @click.prevent="deleteSurvey" class="ml-2 bg-red-600 dark:bg-red-600">Delete</primary-button>
+            <div class="mb-5">
+                <primary-button type="submit" @click.prevent="submitForm">Save</primary-button>
+                <primary-button v-if="isEditMode" type="button" @click.prevent="deleteSurvey" class="ml-2 bg-red-600 dark:bg-red-600">Delete</primary-button>
+            </div>
         </form>
+
+        <div v-if="isEditMode && existingSurvey.id" class="mt-10">
+            <hr />
+            <survey-fields :survey="existingSurvey" @refresh-survey="fetchExistingSurvey(existingSurvey.id)" />
+        </div>
     </div>
 </template>
 
@@ -83,6 +90,7 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
 import { onBeforeRouteUpdate } from 'vue-router'
 import { formatDate } from '../../bootstrap';
+import SurveyFields from '../SurveyFields/Index.vue';
 
 const router = useRouter();
 const userInfo = inject('userInfo');
@@ -100,6 +108,7 @@ const existingSurvey = ref({
     company_id: null,
     start_at: null,
     end_at: null,
+    fields: [],
 });
 
 const survey = ref({
@@ -113,19 +122,23 @@ const survey = ref({
 
 onBeforeRouteUpdate(async (to, from) => {
     if (to.params.id) {
-        await fetchExistingSurvey(to.params.id);
+        await fetchExistingSurvey(to.params.id, true);
     }
 });
 
 onMounted(async () => {
     if (router.currentRoute.value.params.id) {
-        await fetchExistingSurvey(router.currentRoute.value.params.id);
+        await fetchExistingSurvey(router.currentRoute.value.params.id, true);
     }
 });
 
-const fetchExistingSurvey = async (id) => {
+const fetchExistingSurvey = async (id, updateSurvey = false) => {
     try {
         existingSurvey.value = (await getSurvey(id)).data;
+
+        if (!updateSurvey) {
+            return;
+        }
 
         survey.value.title = existingSurvey.value.title;
         survey.value.description = existingSurvey.value.description;
