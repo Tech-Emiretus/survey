@@ -31,6 +31,11 @@ jobs:
         env:
           runner: self-hosted
 
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
       - name: Get Composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -48,7 +53,12 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: |
+          composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+          npm install
+
+      - name: Build Assets
+        run: npm run build
 
       - name: Generate key
         run: php artisan key:generate

@@ -26,6 +26,7 @@ setup:
 	make start
 	make app-key
 	make db-reset
+	make frontend-build
 
 build:
 	make stop
@@ -91,6 +92,9 @@ generate-ide-helpers:
 
 frontend:
 	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "npm install && npm run dev"
+
+frontend-build:
+	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "npm install && npm run build"
 
 restart-bg-processes:
 	$(WINPTY)docker compose --env-file ${ENV_FILE} exec $(TTY_PARAM) survey-app sh -c "supervisorctl restart queue-worker:* scheduler:*"
