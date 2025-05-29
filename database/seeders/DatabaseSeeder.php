@@ -71,6 +71,7 @@ class DatabaseSeeder extends Seeder
         DB::table('survey_fields')->truncate();
         DB::table('survey_responses')->truncate();
         DB::table('surveys')->truncate();
+        DB::table('company_user')->truncate();
         DB::table('companies')->truncate();
         DB::table('users')->truncate();
 

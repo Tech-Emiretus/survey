@@ -20,7 +20,7 @@ class SurveyResponseFactory extends Factory
         return [
             'survey_id' => Survey::factory(),
             'respondent_name' => $this->faker->name(),
-            'respondent_email' => $this->faker->optional()->safeEmail(),
+            'respondent_email' => $this->faker->safeEmail(),
         ];
     }
 }
